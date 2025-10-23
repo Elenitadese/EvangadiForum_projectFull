@@ -43,8 +43,6 @@ Frontend/
 ├── package.json
 └── vite.config.js
 
----
-
 ## ⚙️ Setup & Installation
 
 1. **Navigate into the frontend folder**
