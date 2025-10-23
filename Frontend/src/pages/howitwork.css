@@ -1,0 +1,81 @@
+/* src/pages/HowItWork/howitwork.css */
+
+/* Color Theme */
+:root {
+  --evangadi-orange: #ffa039;
+  --evangadi-blue: #0d6efd;
+  --text-dark: #2c3e50;
+  --text-muted: #6c757d;
+  --bg-light: #f8f9fa;
+}
+
+/* General Page Setup */
+.howitwork-page {
+  font-family: "Segoe UI", sans-serif;
+  color: var(--text-dark);
+}
+
+/* Hero */
+.hero {
+  background-color: var(--evangadi-orange);
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  opacity: 0.95;
+}
+
+/* Getting Started */
+.getting-started h2 {
+  color: var(--text-dark);
+}
+
+.step-card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.step-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--evangadi-orange);
+  color: white;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Guidelines */
+.guidelines {
+  background: var(--bg-light);
+}
+
+.list-group-item {
+  font-size: 1rem;
+  color: var(--text-muted);
+  background-color: transparent;
+  border: none;
+  padding: 10px 0;
+}
+
+/* CTA */
+.cta {
+  background-color: var(--evangadi-orange);
+}
+
+.cta a.btn {
+  border-radius: 30px;
+}
