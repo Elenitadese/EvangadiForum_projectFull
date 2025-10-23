@@ -30,7 +30,7 @@ const Home = () => {
         }
 
         const res = await axios.get(
-          `/questions/allquestion?search=${search}&page=${page}&limit=12`,
+          `/questions/allquestion?search=${search}&page=${page}&limit=3`,
           { headers: { Authorization: "Bearer " + token } }
         );
 

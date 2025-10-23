@@ -1,41 +1,163 @@
+// import React, { useState } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import axios from "../axios/axios";
+// import AboutMessage from "./AboutMessage";
+// import { DotLoader } from "react-spinners"; // import DotLoader
 
+// function Login() {
+//   const navigate = useNavigate(); // to redirect after login
+
+//   // Track form input values
+//   const [formData, setFormData] = useState({ email: "", password: "" });
+//   const [loading, setLoading] = useState(false); // Track form submission loading
+
+//   const [error, setError] = useState(null); // Track general error message
+//   const [fieldErrors, setFieldErrors] = useState({}); // Track which fields are invalid
+
+//   // Handle input changes
+//   const handleChange = (e) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value }); // Update form state
+//     setFieldErrors({ ...fieldErrors, [e.target.name]: false }); // Reset field highlight on change
+//   };
+
+//   // Determine input CSS class based on error state
+//   const inputClass = (field) =>
+//     fieldErrors[field] ? "form-control border-danger" : "form-control";
+
+//   // Handle form submission
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setError(null); // Reset general error
+//     setLoading(true); // Start loading
+
+//     // Frontend validation: check required fields
+//     let tempFieldErrors = {};
+//     let hasError = false;
+
+//     if (!formData.email) {
+//       tempFieldErrors.email = true;
+//       hasError = true;
+//     }
+//     if (!formData.password) {
+//       tempFieldErrors.password = true;
+//       hasError = true;
+//     }
+
+//     if (hasError) {
+//       setError("Please fill all required fields"); // Show error message
+//       setFieldErrors(tempFieldErrors); // Highlight invalid fields
+//       setLoading(false);
+//       return;
+//     }
+
+//     try {
+//       const res = await axios.post("/users/login", formData); // Send login request
+//       localStorage.setItem("auth-token", res.data.token); // Save token
+//       navigate("/"); // Redirect to home after success
+//     } catch (err) {
+//       const msg = err.response?.data?.message || "Invalid credentials";
+//       setError(msg); // Show backend error message
+
+//       // Highlight fields based on backend response
+//       let newFieldErrors = {};
+//       if (msg.toLowerCase().includes("email")) newFieldErrors.email = true;
+//       if (msg.toLowerCase().includes("password")) newFieldErrors.password = true;
+//       setFieldErrors(newFieldErrors);
+//     }
+
+//     setLoading(false); // Stop loading
+//   };
+
+//   return (
+//     <div className="container mt-5 py-5">
+//       <div className="row justify-content-center align-items-center ">
+//         {/* Left: Login Form */}
+//         <div className="col-md-6 ">
+//           <div className="p-5 shadow-lg ">
+//             <h2 className="text-center">Login</h2>
+
+//             {error && <div className="alert alert-danger">{error}</div>} {/* Display error */}
+
+//             <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
+//               {/* Email */}
+//               <input
+//                 type="email"
+//                 name="email"
+//                 placeholder="Email"
+//                 value={formData.email}
+//                 onChange={handleChange}
+//                 className={inputClass("email")} // Highlight if error
+//               />
+
+//               {/* Password */}
+//               <input
+//                 type="password"
+//                 name="password"
+//                 placeholder="Password"
+//                 value={formData.password}
+//                 onChange={handleChange}
+//                 className={inputClass("password")} // Highlight if error
+//               />
+
+//            <button
+//   type="submit"
+//   className="btn btn-warning fw-bold d-flex justify-content-center align-items-center gap-2"
+//   disabled={loading}
+// >
+//   {loading && <DotLoader color="#fff" size={15} />}
+//   {loading ? "Logging in..." : "Login"}
+// </button>
+
+//             </form>
+
+//             <p className="text-center mt-5">
+//               Don’t have an account?{" "}
+//               <Link to="/register" className="text-warning fw-bold">
+//                 Sign Up
+//               </Link>
+//             </p>
+//           </div>
+//         </div>
+
+//         {/* Right: About Message */}
+//         <div className="col-md-6">
+//           <AboutMessage /> {/* Display about info */}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Login;
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../axios/axios";
 import AboutMessage from "./AboutMessage";
-import { DotLoader } from "react-spinners"; // import DotLoader
-
+import { DotLoader } from "react-spinners";
 
 function Login() {
-  const navigate = useNavigate(); // to redirect after login
-
-  // Track form input values
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false); // Track form submission loading
-  
-  const [error, setError] = useState(null); // Track general error message
-  const [fieldErrors, setFieldErrors] = useState({}); // Track which fields are invalid
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false); // 👁️ toggle state
 
-  // Handle input changes
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value }); // Update form state
-    setFieldErrors({ ...fieldErrors, [e.target.name]: false }); // Reset field highlight on change
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFieldErrors({ ...fieldErrors, [e.target.name]: false });
   };
 
-  // Determine input CSS class based on error state
   const inputClass = (field) =>
     fieldErrors[field] ? "form-control border-danger" : "form-control";
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Reset general error
-    setLoading(true); // Start loading
+    setError(null);
+    setLoading(true);
 
-    // Frontend validation: check required fields
     let tempFieldErrors = {};
     let hasError = false;
-
     if (!formData.email) {
       tempFieldErrors.email = true;
       hasError = true;
@@ -46,39 +168,37 @@ function Login() {
     }
 
     if (hasError) {
-      setError("Please fill all required fields"); // Show error message
-      setFieldErrors(tempFieldErrors); // Highlight invalid fields
+      setError("Please fill all required fields");
+      setFieldErrors(tempFieldErrors);
       setLoading(false);
       return;
     }
 
     try {
-      const res = await axios.post("/users/login", formData); // Send login request
-      localStorage.setItem("auth-token", res.data.token); // Save token
-      navigate("/"); // Redirect to home after success
+      const res = await axios.post("/users/login", formData);
+      localStorage.setItem("auth-token", res.data.token);
+      navigate("/");
     } catch (err) {
       const msg = err.response?.data?.message || "Invalid credentials";
-      setError(msg); // Show backend error message
+      setError(msg);
 
-      // Highlight fields based on backend response
       let newFieldErrors = {};
       if (msg.toLowerCase().includes("email")) newFieldErrors.email = true;
-      if (msg.toLowerCase().includes("password")) newFieldErrors.password = true;
+      if (msg.toLowerCase().includes("password"))
+        newFieldErrors.password = true;
       setFieldErrors(newFieldErrors);
     }
 
-    setLoading(false); // Stop loading
+    setLoading(false);
   };
 
   return (
     <div className="container mt-5 py-5">
-      <div className="row justify-content-center align-items-center ">
-        {/* Left: Login Form */}
-        <div className="col-md-6 ">
-          <div className="p-5 shadow-lg ">
+      <div className="row justify-content-center align-items-center">
+        <div className="col-md-6">
+          <div className="p-5 shadow-lg">
             <h2 className="text-center">Login</h2>
-
-            {error && <div className="alert alert-danger">{error}</div>} {/* Display error */}
+            {error && <div className="alert alert-danger">{error}</div>}
 
             <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
               {/* Email */}
@@ -88,28 +208,41 @@ function Login() {
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
-                className={inputClass("email")} // Highlight if error
+                className={inputClass("email")}
               />
 
-              {/* Password */}
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                className={inputClass("password")} // Highlight if error
-              />
+              {/* Password with viewer */}
+              <div className="position-relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={`${inputClass("password")} pe-5`}
+                />
+                <i
+                  className={`bi ${
+                    showPassword ? "bi-eye-slash" : "bi-eye"
+                  } position-absolute`}
+                  style={{
+                    top: "50%",
+                    right: "15px",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setShowPassword(!showPassword)}
+                ></i>
+              </div>
 
-           <button
-  type="submit"
-  className="btn btn-warning fw-bold d-flex justify-content-center align-items-center gap-2"
-  disabled={loading}
->
-  {loading && <DotLoader color="#fff" size={15} />}
-  {loading ? "Logging in..." : "Login"}
-</button>
-
+              <button
+                type="submit"
+                className="btn btn-warning fw-bold d-flex justify-content-center align-items-center gap-2"
+                disabled={loading}
+              >
+                {loading && <DotLoader color="#fff" size={15} />}
+                {loading ? "Logging in..." : "Login"}
+              </button>
             </form>
 
             <p className="text-center mt-5">
@@ -121,9 +254,8 @@ function Login() {
           </div>
         </div>
 
-        {/* Right: About Message */}
         <div className="col-md-6">
-          <AboutMessage /> {/* Display about info */}
+          <AboutMessage />
         </div>
       </div>
     </div>
