@@ -7,7 +7,7 @@ const {
   getSingleQuestion,
   editQuestion,
   deleteQuestion,
-} = require("../controllers/quationcontroller"); // controller functions
+} = require("../controllers/questionController"); // controller functions
 
 // Create a new question (protected)
 router.post("/createquestion", authMiddleware, createQuestion);
