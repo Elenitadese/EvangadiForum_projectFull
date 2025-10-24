@@ -1,20 +1,19 @@
 const mysql2 = require("mysql2");
-require("dotenv").config(); // ✅ Load environment variables from .env
+require("dotenv").config();
 
-// Create a connection pool
+// ✅ Use consistent environment variable names
 const dbconnect = mysql2.createPool({
-  host: process.env.host,
-  user: process.env.user,
-  password: process.env.password,
-  database: process.env.database,
-  port: process.env.port,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
   connectionLimit: 10,
 });
 
-// Export promise-based pool
 module.exports = dbconnect.promise();
 
-// Optional: Test connection (uncomment to check DB)
+// Test connection
 dbconnect.getConnection((err, connection) => {
   if (err) {
     console.error("❌ DB connection failed:", err.message);

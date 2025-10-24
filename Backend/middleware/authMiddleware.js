@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config(); // Load secret from .env
-const JWT_SECRET = process.env.secret; // Secret key for JWT verification
+const JWT_SECRET = process.env.JWT_SECRET; // Secret key for JWT verification
 
 // Middleware to protect routes
 async function authMiddleware(req, res, next) {

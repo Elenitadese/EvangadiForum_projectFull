@@ -2,7 +2,7 @@ const dbconnect = require("../db/dbconfig"); // import database connection
 const bcrypt = require("bcrypt"); // for password hashing
 const jwt = require("jsonwebtoken"); // for JWT tokens
 
-const JWT_SECRET = process.env.secret; // secret for JWT signing
+const JWT_SECRET = process.env.JWT_SECRET; // secret for JWT signing
 
 // Register a new user
 async function register(req, res) {
